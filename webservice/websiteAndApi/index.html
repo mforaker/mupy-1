@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>My First Website</title>
+	<link rel="import" href="includes/head.html">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"> </script>
+</head>
+<body>
+	
+    <div style="margin-left:32px; margin-top:32px;">
+        <span id="loadTest" onclick="loadArgs()" class="btn btn-primary">Load Test</span>
+    </div>
+
+    <div id="label">
+        Standing By...
+    </div>
+
+    <script>
+        //service("", "{}", function (response) { }, function (response) { });
+
+	        function service(method, data, success, fail) {
+				$.ajax({
+					type: "POST",
+					url: "api.asmx/" + method,
+					data: data,
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					success: success,
+					error: fail
+				});
+        }
+
+
+        function loadArgs() {
+
+            var label = document.getElementById("label");
+            label.innerHTML = "";
+            var text = "";
+
+            service("testArgs", "{str:'success', id:'1'}", function (response) {
+                console.log(response);
+                label.innerHTML = response.Message;
+            },
+                function (response) {
+                    alert("error...");
+                    console.log(response);
+                });
+
+
+        }
+
+
+
+         function load() {
+
+             var label = document.getElementById("label");
+             label.innerHTML = "";
+             var text = "";
+
+             service("testApi", "{}", function (response) {
+                 //response.forEach(function (value, index) {
+                 //    text = value.Message; + "";
+                 //    label.innerHTML = " " + text;
+                 //    console.log(text);
+                 console.log(response);
+                 label.innerHTML = response.Message;
+                 //});
+             },
+                function (response) {
+                    alert("Error");
+                     console.log(response);
+                 });
+
+           
+
+         }
+
+        //function load(){
+
+        	//var connection = new ActiveXObject("ADODB.Connection") 
+
+        	//var connectionstring="Data Source=<den1.mssql7.gear.host>;Initial Catalog=<dndb>;User ID=<dndb>;Password=<Spike8569!>;Provider=SQLOLEDB";
+
+        //	connection.Open(connectionstring);
+			
+			//var rs = new ActiveXObject("ADODB.Recordset");
+
+		//	rs.Open("SELECT * FROM testTbl", connection);
+
+			//rs.MoveFirst
+			//while(!rs.eof)
+			//{
+			 //  document.write(rs.fields(1));
+			// rs.movenext;
+			//}
+
+		//	rs.close;
+		//	connection.close; 
+
+
+        //}
+       
+
+    </script>
+</body>
+</html>
+
+
